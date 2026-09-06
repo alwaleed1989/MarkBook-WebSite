@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MarkBook — رفيقك في القراءة</title>
+<meta name="description" content="markbook: تطبيق لمتابعة قراءة كتبك، تسجيل تقدّمك، والقراءة بمؤقّت مع منبّه.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14293D; --ink-soft:#2C4763;
+    --paper:#FBF7F0; --paper-deep:#F1EADD;
+    --brass:#C08A2E; --brass-light:#E4B75C;
+    --line:#E0D6C4;
+    --shadow:0 1px 2px rgba(20,41,61,.04),0 10px 30px rgba(20,41,61,.07);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Cairo',sans-serif;background:var(--paper);color:var(--ink);line-height:1.75;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Amiri',serif;font-weight:700;line-height:1.3}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+
+  /* header */
+  header{position:sticky;top:0;z-index:20;background:rgba(251,247,240,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:19px;font-family:'Amiri'}
+  .brand .mark{width:15px;height:28px;border-radius:2px;background:linear-gradient(var(--brass),var(--brass-light));box-shadow:0 2px 6px rgba(192,138,46,.35)}
+  nav.links{display:flex;gap:24px;font-size:15px;font-weight:600}
+  nav.links a{color:var(--ink-soft);transition:.2s}
+  nav.links a:hover{color:var(--brass)}
+  .lang-btn{font-family:'Cairo';font-weight:700;font-size:13px;border:1px solid var(--line);background:transparent;color:var(--ink);padding:7px 14px;border-radius:20px;cursor:pointer;transition:.2s}
+  .lang-btn:hover{border-color:var(--brass);color:var(--brass)}
+
+  /* hero */
+  .hero{padding:90px 0 40px;text-align:center}
+  .ver{display:inline-block;color:var(--brass);font-weight:700;font-size:12px;letter-spacing:3px;text-transform:uppercase;border:1px solid var(--brass);border-radius:20px;padding:5px 16px;margin-bottom:24px}
+  .hero h1{font-size:clamp(40px,7.5vw,68px);letter-spacing:-.5px}
+  .hero .lede{max-width:600px;margin:22px auto 0;font-size:19px;color:var(--ink-soft)}
+  .cta{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);font-weight:700;font-size:16px;padding:15px 30px;border-radius:13px;margin-top:34px;transition:.2s;box-shadow:var(--shadow)}
+  .cta:hover{background:var(--ink-soft);transform:translateY(-2px)}
+  .divider{width:64px;height:2px;margin:56px auto 0;background:linear-gradient(90deg,transparent,var(--brass),transparent)}
+
+  /* mockup strip: shelf of spines */
+  .shelf{display:flex;justify-content:center;gap:9px;margin-top:40px;height:120px;align-items:flex-end}
+  .spine{width:34px;border-radius:4px 4px 2px 2px;position:relative;box-shadow:var(--shadow);display:flex;align-items:flex-end;overflow:hidden}
+  .spine i{display:block;width:100%;background:rgba(192,138,46,.9)}
+
+  section{padding:60px 0;scroll-margin-top:80px}
+  .sec-head{text-align:center;margin-bottom:44px}
+  .sec-head .ey{color:var(--brass);font-weight:700;font-size:12px;letter-spacing:3px;text-transform:uppercase}
+  .sec-head h2{font-size:34px;margin-top:8px}
+  .sec-head p{color:var(--ink-soft);margin-top:10px;font-size:16px}
+
+  /* features grid */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .feat{display:flex;gap:0;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);transition:.25s}
+  .feat:hover{transform:translateY(-3px);border-color:var(--brass-light)}
+  .feat .edge{width:8px;flex:none;background:linear-gradient(var(--brass),var(--brass-light))}
+  .feat .body{padding:24px 24px 22px}
+  .feat .ic{width:46px;height:46px;border-radius:12px;background:var(--paper-deep);display:grid;place-items:center;color:var(--brass);margin-bottom:14px}
+  .feat .ic svg{width:24px;height:24px}
+  .feat h3{font-size:20px;margin-bottom:6px}
+  .feat p{color:var(--ink-soft);font-size:14.5px;line-height:1.7}
+
+  /* specs list */
+  .specs{background:var(--paper-deep);border-radius:20px;padding:40px}
+  .specs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 40px}
+  .spec{display:flex;align-items:flex-start;gap:12px}
+  .spec .chk{width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--brass-light);display:grid;place-items:center;flex:none;margin-top:2px}
+  .spec .chk svg{width:14px;height:14px}
+  .spec strong{font-family:'Amiri';font-size:16px;display:block}
+  .spec span{color:var(--ink-soft);font-size:14px}
+
+  /* privacy + contact cards row */
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .panel{border-radius:20px;padding:34px;box-shadow:var(--shadow)}
+  .panel.privacy{background:#fff;border:1px solid var(--line)}
+  .panel.contact{background:linear-gradient(150deg,var(--ink),var(--ink-soft));color:var(--paper)}
+  .panel h3{font-size:23px;margin-bottom:10px}
+  .panel.contact h3{color:#fff}
+  .panel p{color:var(--ink-soft);font-size:15px;margin-bottom:20px}
+  .panel.contact p{color:rgba(251,247,240,.8)}
+  .panel .icrow{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;margin-bottom:16px}
+  .panel.privacy .icrow{background:var(--paper-deep);color:var(--brass)}
+  .panel.contact .icrow{background:rgba(228,183,92,.18);color:var(--brass-light)}
+  .btn-line{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:15px}
+  .panel.privacy .btn-line{color:var(--brass)}
+  .btn-mail{display:inline-flex;align-items:center;gap:10px;background:var(--brass);color:#fff;font-weight:700;font-size:15px;padding:13px 26px;border-radius:12px;transition:.2s}
+  .btn-mail:hover{background:var(--brass-light);transform:translateY(-1px)}
+
+  footer{border-top:1px solid var(--line);padding:34px 0;text-align:center;margin-top:20px}
+  footer .brand{justify-content:center;margin-bottom:8px}
+  footer p{color:var(--ink-soft);font-size:13px}
+
+  [data-en]{display:none}
+  html[lang="en"] [data-ar]{display:none}
+  html[lang="en"] [data-en]{display:revert}
+
+  @media(max-width:720px){
+    .grid,.specs-grid,.duo{grid-template-columns:1fr}
+    nav.links{display:none}
+    .hero{padding:64px 0 30px}
+    .specs,.panel{padding:26px}
+  }
+
+  .brand {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* مسافة بين اللوقو والنص */
+  text-decoration: none;
+}
+
+.logo-img {
+  width: 120px;  /* يمكنك تعديل العرض حسب الحجم المطلوب */
+  height: auto;   /* يحافظ على أبعاد الصورة وبدون تشويه */
+  display: block; /* يضمن عدم وجود مسافات فارغة غير مرغوبة حول الصورة */
+}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#top">
+      <img src="./image/markbook_logo.png" alt="MarkBook | كتيب" class="logo-img">
+
+    <nav class="links">
+      <a href="#features"><span data-ar>المزايا</span><span data-en>Features</span></a>
+      <a href="#specs"><span data-ar>الخصائص</span><span data-en>Specs</span></a>
+      <a href="#privacy"><span data-ar>الخصوصية</span><span data-en>Privacy</span></a>
+      <a href="#contact"><span data-ar>تواصل معنا</span><span data-en>Contact</span></a>
+    </nav>
+    <button class="lang-btn" onclick="toggleLang()"><span data-ar>EN</span><span data-en>عربي</span></button>
+  </div>
+</header>
+
+<a id="top"></a>
+<div class="hero">
+  <div class="wrap">
+    <span class="ver"><span data-ar>الإصدار 1.0</span><span data-en>Version 1.0</span></span>
+    <h1><span data-ar>اقرأ أكثر، وتابع كل صفحة</span><span data-en>Read more, track every page</span></h1>
+    <p class="lede">
+      <span data-ar>MarkBook  | كتيب | رفيقك في القراءة: نظّم كتبك، اعرف أين وصلت في كل واحد، واقرأ بمؤقّت ينبّهك عند انتهاء الوقت.</span>
+      <span data-en>MarkBook is your reading companion: organize your books, know where you are in each, and read with a timer that alerts you when time is up.</span>
+    </p>
+    <a class="cta" href="#" onclick="return false">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5v-17c0-.6.3-1.1.9-1.4l12.4 9.9c.4.3.4.9 0 1.2L3.9 21.9c-.6.3-.9-.2-.9-.8z" opacity=".9"/></svg>
+      <span data-ar> قريبا</span><span data-en>Get it Soon</span>
+      <!-- <span data-ar>حمّله من Google Play</span><span data-en>Get it on Google Play</span>
+      <span data-ar>حمّله من Google Play</span><span data-en>Get it on Google Play</span> -->
+
+    </a>
+
+    <div class="shelf" id="shelf"></div>
+    <div class="divider"></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="sec-head">
+      <div class="ey"><span data-ar>لماذا MarkBook</span><span data-en>Why MarkBook</span></div>
+      <h2><span data-ar>كل ما تحتاجه لتتابع قراءتك</span><span data-en>Everything you need to track your reading</span></h2>
+      <p><span data-ar>مزايا النسخة الأولى — بسيطة ومباشرة.</span><span data-en>What version 1 brings — simple and focused.</span></p>
+    </div>
+    <div class="grid">
+
+      <div class="feat">
+        <div class="edge"></div>
+        <div class="body">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+          <h3><span data-ar>رفّ كتبك</span><span data-en>Your bookshelf</span></h3>
+          <p><span data-ar>أضف كل كتاب مع عدد صفحاته، واحتفظ باسم المؤلف والسعر إن أردت. كتبك كلها في مكان واحد مرتّب.</span><span data-en>Add each book with its page count, and keep the author and price if you like. All your books in one tidy place.</span></p>
+        </div>
+      </div>
+
+      <div class="feat">
+        <div class="edge"></div>
+        <div class="body">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+          <h3><span data-ar>أين وصلت</span><span data-en>Where you stopped</span></h3>
+          <p><span data-ar>سجّل رقم الصفحة التي توقفت عندها، فيظهر شريط تقدّم واضح تحت اسم الكتاب مع نسبتك المئوية بالضبط.</span><span data-en>Save the page you stopped at, and a clear progress bar appears under the title with your exact percentage.</span></p>
+        </div>
+      </div>
+
+      <div class="feat">
+        <div class="edge"></div>
+        <div class="body">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2"/><path d="M5 3 2 6"/><path d="m22 6-3-3"/></svg></div>
+          <h3><span data-ar>مؤقّت القراءة</span><span data-en>Reading timer</span></h3>
+          <p><span data-ar>حدّد دقائق أو ساعات لجلسة قراءتك، وتابع العدّ التنازلي، وسيرنّ المنبّه فور انتهاء الوقت.</span><span data-en>Set minutes or hours for your session, watch the countdown, and an alarm rings the moment time is up.</span></p>
+        </div>
+      </div>
+
+      <div class="feat">
+        <div class="edge"></div>
+        <div class="body">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg></div>
+          <h3><span data-ar>الكتب المكتملة</span><span data-en>Completed books</span></h3>
+          <p><span data-ar>عند بلوغك آخر صفحة يُنقل الكتاب تلقائياً إلى قائمة الكتب المكتملة، فتفخر بما أنجزت.</span><span data-en>When you reach the last page, the book moves automatically to your completed list — a record you can be proud of.</span></p>
+        </div>
+      </div>
+
+      <div class="feat">
+        <div class="edge"></div>
+        <div class="body">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg></div>
+          <h3><span data-ar>الوضع الليلي</span><span data-en>Night mode</span></h3>
+          <p><span data-ar>وضع ليلي مريح للعين للقراءة في الإضاءة المنخفضة، بلمسة تصميم دافئة.</span><span data-en>A comfortable night mode for reading in low light, with a warm design touch.</span></p>
+        </div>
+      </div>
+
+      <div class="feat">
+        <div class="edge"></div>
+        <div class="body">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+          <h3><span data-ar>عربي وإنجليزي</span><span data-en>Arabic & English</span></h3>
+          <p><span data-ar>يدعم التطبيق العربية والإنجليزية بالكامل، وتبدّل بينهما بلمسة واحدة من الإعدادات.</span><span data-en>Full support for Arabic and English, switchable with a single tap in settings.</span></p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SPECS -->
+  <section id="specs">
+    <div class="sec-head">
+      <div class="ey"><span data-ar>الخصائص</span><span data-en>Specs</span></div>
+      <h2><span data-ar>تفاصيل النسخة 1.0</span><span data-en>Version 1.0 details</span></h2>
+    </div>
+    <div class="specs">
+      <div class="specs-grid">
+        <div class="spec"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><strong data-ar>حقول ذكية</strong><strong data-en>Smart fields</strong><span data-ar>اسم الكتاب والصفحات إلزاميان، المؤلف والسعر اختياريان.</span><span data-en>Title and pages required; author and price optional.</span></span></div>
+        <div class="spec"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><strong data-ar>تعديل وحذف</strong><strong data-en>Edit & delete</strong><span data-ar>عدّل بيانات أي كتاب أو احذفه في أي وقت.</span><span data-en>Edit any book's details or remove it anytime.</span></span></div>
+        <div class="spec"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><strong data-ar>إدخال بالأرقام فقط</strong><strong data-en>Numbers only</strong><span data-ar>خانة الصفحات تقبل الأرقام فقط لتفادي الأخطاء.</span><span data-en>The pages field accepts numbers only to avoid mistakes.</span></span></div>
+        <div class="spec"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><strong data-ar>حفظ تلقائي</strong><strong data-en>Auto-save</strong><span data-ar>كل تغيير يُحفظ على جهازك فوراً، ويبقى بعد إغلاق التطبيق.</span><span data-en>Every change is saved on your device instantly and persists after closing.</span></span></div>
+        <div class="spec"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><strong data-ar>يعمل دون إنترنت</strong><strong data-en>Works offline</strong><span data-ar>لا يحتاج حساباً ولا اتصالاً؛ بياناتك تبقى معك.</span><span data-en>No account or connection needed; your data stays with you.</span></span></div>
+        <div class="spec"><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><strong data-ar>إزالة الإعلانات</strong><strong data-en>Remove ads</strong><span data-ar>شراء واحد اختياري لتجربة خالية من الإعلانات.</span><span data-en>One optional purchase for an ad-free experience.</span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIVACY + CONTACT -->
+  <section id="privacy">
+    <div class="duo">
+      <div class="panel privacy">
+        <div class="icrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3><span data-ar>الخصوصية</span><span data-en>Privacy</span></h3>
+        <p><span data-ar>بياناتك تُحفظ على جهازك فقط. لا حسابات ولا رفع للبيانات. اقرأ السياسة الكاملة الخاصة بالتطبيق.</span><span data-en>Your data is stored on your device only. No accounts, no uploads. Read the app's full policy.</span></p>
+        <a class="btn-line" href="privacy-markbook.html"><span data-ar>سياسة الخصوصية ‹</span><span data-en>Privacy policy ›</span></a>
+      </div>
+      <div class="panel contact" id="contact">
+        <div class="icrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg></div>
+        <h3><span data-ar>تواصل معنا</span><span data-en>Contact us</span></h3>
+        <p><span data-ar>لديك سؤال أو اقتراح لتحسين MarkBook يسعدنا سماعك.</span><span data-en>Have a question or an idea to improve MarkBook? We'd love to hear from you.</span></p>
+        <a class="btn-mail" href="mailto:[your@email.com]">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+          [your@email.com]
+        </a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="brand"><span class="mark"></span>MarkBook</div>
+    <p>© <span id="year"></span> MarkBook ·
+      <span data-ar>صُنع من قبل Alwaleed.Dev</span><span data-en>Made with love for readers</span>
+    </p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent=new Date().getFullYear();
+
+  // build the little shelf of book spines
+  (function(){
+    const cols=['#2C4763','#7A4B3A','#3B7A5E','#6B3F63','#B0762A','#3A5F72','#8A3A3A'];
+    const fills=[.85,.55,1,.4,.7,.3,.6];
+    const hs=[110,88,120,72,100,84,116];
+    const el=document.getElementById('shelf');
+    cols.forEach((c,i)=>{
+      const s=document.createElement('div');
+      s.className='spine';s.style.height=hs[i]+'px';s.style.background=c;
+      const f=document.createElement('i');f.style.height=(fills[i]*100)+'%';
+      s.appendChild(f);el.appendChild(s);
+    });
+  })();
+
+  function toggleLang(){
+    const h=document.documentElement,en=h.lang==='en';
+    h.lang=en?'ar':'en';h.dir=en?'rtl':'ltr';
+    try{localStorage.setItem('mb-lang',h.lang)}catch(e){}
+  }
+  try{const s=localStorage.getItem('mb-lang');if(s==='en'){document.documentElement.lang='en';document.documentElement.dir='ltr';}}catch(e){}
+</script>
+</body>
+</html>

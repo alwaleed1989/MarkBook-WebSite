@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سياسة الخصوصية — MarkBook - كتيب</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#14293D;--ink-soft:#2C4763;--paper:#FBF7F0;--paper-deep:#F1EADD;--brass:#C08A2E;--brass-light:#E4B75C;--line:#E0D6C4}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Cairo',sans-serif;background:var(--paper);color:var(--ink);line-height:1.85;-webkit-font-smoothing:antialiased}
+  h1,h2{font-family:'Amiri',serif;font-weight:700;line-height:1.35}
+  a{color:var(--brass);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  header{background:rgba(251,247,240,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
+  .bar{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .back{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--ink-soft);font-size:15px}
+  .back:hover{color:var(--brass);text-decoration:none}
+  .lang-btn{font-family:'Cairo';font-weight:700;font-size:13px;border:1px solid var(--line);background:transparent;color:var(--ink);padding:7px 14px;border-radius:20px;cursor:pointer}
+  .lang-btn:hover{border-color:var(--brass);color:var(--brass)}
+  .head{padding:54px 0 26px}
+  .head .app{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+  .app-icon{width:56px;height:56px;border-radius:14px;background:linear-gradient(140deg,var(--ink),var(--ink-soft));display:grid;place-items:center;color:var(--brass-light);flex:none}
+  .app-icon svg{width:28px;height:28px}
+  .head h1{font-size:34px}
+  .head .sub{color:var(--ink-soft);font-size:15px;margin-top:4px}
+  .updated{display:inline-block;margin-top:16px;font-size:13px;color:var(--brass);font-weight:700;background:rgba(192,138,46,.1);padding:5px 14px;border-radius:20px}
+  main{padding-bottom:60px}
+  .block{margin-top:32px}
+  .block h2{font-size:22px;display:flex;align-items:baseline;gap:12px;margin-bottom:10px}
+  .block h2 .n{font-family:'Amiri';font-size:14px;color:var(--brass);border:1px solid var(--brass);border-radius:50%;width:28px;height:28px;display:grid;place-items:center;flex:none}
+  .block p{color:var(--ink-soft);margin-bottom:10px}
+  .block ul{list-style:none;margin:6px 0 10px}
+  .block li{color:var(--ink-soft);padding-right:22px;position:relative;margin-bottom:8px}
+  .block li::before{content:"";position:absolute;right:4px;top:13px;width:7px;height:7px;border-radius:2px;background:var(--brass)}
+  html[lang="en"] .block li{padding-right:0;padding-left:22px}
+  html[lang="en"] .block li::before{right:auto;left:4px}
+  strong{color:var(--ink);font-weight:700}
+  .callout{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-top:14px}
+  .callout p{margin:0;font-size:14px}
+  footer{border-top:1px solid var(--line);padding:28px 0;text-align:center}
+  footer p{color:var(--ink-soft);font-size:13px}
+  [data-en]{display:none}
+  html[lang="en"] [data-ar]{display:none}
+  html[lang="en"] [data-en]{display:revert}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="back" href="index.html"><span data-ar>› الرئيسية</span><span data-en>‹ Home</span></a>
+    <button class="lang-btn" onclick="toggleLang()"><span data-ar>EN</span><span data-en>عربي</span></button>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="head">
+    <div class="app">
+      <div class="app-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <div>
+        <h1><span data-ar>سياسة الخصوصية</span><span data-en>Privacy Policy</span></h1>
+        <div class="sub">MarkBook</div>
+      </div>
+    </div>
+    <span class="updated"><span data-ar>آخر تحديث: سبتمبر 2026</span><span data-en>Last updated: September 2026</span></span>
+  </div>
+
+  <main>
+    <div class="block">
+      <p data-ar>نحترم خصوصيتك. توضّح هذه السياسة كيف يتعامل تطبيق <strong>MarkBook</strong> مع بياناتك. باستخدامك التطبيق فأنت توافق على ما ورد هنا.</p>
+      <p data-en>We respect your privacy. This policy explains how the <strong>MarkBook</strong> app handles your data. By using the app you agree to the terms below.</p>
+    </div>
+
+    <div class="block">
+      <h2><span class="n">1</span><span data-ar>البيانات التي نجمعها</span><span data-en>Data we collect</span></h2>
+      <p data-ar>يخزّن MarkBook بيانات كتبك — العناوين، عدد الصفحات، المؤلف، السعر، وتقدّم قراءتك — <strong>محلياً على جهازك فقط</strong>. لا نرفع هذه البيانات إلى أي خادم، ولا نطّلع عليها، ولا نطلب منك إنشاء حساب.</p>
+      <p data-en>MarkBook stores your book data — titles, page counts, author, price, and reading progress — <strong>locally on your device only</strong>. We don't upload it to any server, we can't see it, and we don't ask you to create an account.</p>
+    </div>
+
+    <div class="block">
+      <h2><span class="n">2</span><span data-ar>الإعلانات (Google AdMob)</span><span data-en>Ads (Google AdMob)</span></h2>
+      <p data-ar>يعرض التطبيق إعلانات عبر Google AdMob. قد تجمع Google وشركاؤها معرّفات الجهاز وبيانات الاستخدام لعرض إعلانات مناسبة. تديره Google وتحكمه سياسة خصوصيتها:</p>
+      <p data-en>The app shows ads via Google AdMob. Google and its partners may collect device identifiers and usage data to serve relevant ads. This is handled by Google under its own privacy policy:</p>
+      <ul>
+        <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></li>
+        <li><a href="https://support.google.com/admob/answer/6128543" target="_blank" rel="noopener"><span data-ar>سياسات AdMob</span><span data-en>AdMob policies</span></a></li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h2><span class="n">3</span><span data-ar>الشراء داخل التطبيق</span><span data-en>In-app purchases</span></h2>
+      <p data-ar>يتيح التطبيق شراءً واحداً لإزالة الإعلانات. تتم عملية الدفع بالكامل عبر <strong>Google Play</strong>، ولا نستقبل أو نخزّن أي بيانات دفع أو بطاقات. يحفظ التطبيق فقط حالة «تمت إزالة الإعلانات» محلياً على جهازك.</p>
+      <p data-en>The app offers one purchase to remove ads. Payment is processed entirely by <strong>Google Play</strong>; we never receive or store any payment or card details. The app only saves the "ads removed" status locally on your device.</p>
+    </div>
+
+    <div class="block">
+      <h2><span class="n">4</span><span data-ar>الأذونات</span><span data-en>Permissions</span></h2>
+      <ul>
+        <li><strong data-ar>الإنترنت:</strong><strong data-en>Internet:</strong> <span data-ar>لتحميل الإعلانات وإتمام الشراء.</span><span data-en>to load ads and complete purchases.</span></li>
+        <li><strong data-ar>الاهتزاز:</strong><strong data-en>Vibration:</strong> <span data-ar>لتنبيه المنبّه عند انتهاء مؤقّت القراءة.</span><span data-en>for the alarm when a reading timer ends.</span></li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h2><span class="n">5</span><span data-ar>الأطفال</span><span data-en>Children</span></h2>
+      <p data-ar>التطبيق غير موجّه للأطفال دون سن 13، ولا نجمع عمداً أي بيانات منهم.</p>
+      <p data-en>The app is not directed at children under 13, and we do not knowingly collect any data from them.</p>
+    </div>
+
+    <div class="block">
+      <h2><span class="n">6</span><span data-ar>حذف بياناتك</span><span data-en>Deleting your data</span></h2>
+      <p data-ar>بما أن كل البيانات على جهازك، يمكنك حذفها في أي وقت عبر «حذف جميع الكتب» في الإعدادات، أو بإلغاء تثبيت التطبيق، وعندها تُمحى نهائياً.</p>
+      <p data-en>Since all data lives on your device, you can delete it any time via "Delete all books" in Settings, or by uninstalling the app — this erases it permanently.</p>
+    </div>
+
+    <div class="block">
+      <h2><span class="n">7</span><span data-ar>تغييرات على هذه السياسة</span><span data-en>Changes to this policy</span></h2>
+      <p data-ar>قد نحدّث هذه السياسة من وقت لآخر. سيظهر تاريخ آخر تحديث في أعلى الصفحة.</p>
+      <p data-en>We may update this policy from time to time. The last-updated date appears at the top of this page.</p>
+    </div>
+
+    <div class="block">
+      <h2><span class="n">8</span><span data-ar>تواصل معنا</span><span data-en>Contact us</span></h2>
+      <div class="callout">
+        <p data-ar>لأي استفسار حول خصوصيتك، راسلنا على: <a href="mailto:[your@email.com]">[your@email.com]</a></p>
+        <p data-en>For any privacy question, email us at: <a href="mailto:[your@email.com]">[your@email.com]</a></p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<footer><div class="wrap"><p>© <span id="year"></span> MarkBook</p></div></footer>
+<script>
+  document.getElementById('year').textContent=new Date().getFullYear();
+  function toggleLang(){const h=document.documentElement,en=h.lang==='en';h.lang=en?'ar':'en';h.dir=en?'rtl':'ltr';try{localStorage.setItem('mb-lang',h.lang)}catch(e){}}
+  try{const s=localStorage.getItem('mb-lang');if(s==='en'){document.documentElement.lang='en';document.documentElement.dir='ltr';}}catch(e){}
+</script>
+</body>
+</html>
